@@ -45,7 +45,7 @@ class Untwister:
         for i in range(n):
             x = (MT[i] & upper_mask) + (MT[(i+1) % n] & lower_mask)
             xA = LShR(x, 1)
-            xB = If(x & 1 == 0, xA, xA ^ a) #Possible Z3 optimization here by declaring auxiliary symbolic variables
+            xB = xA ^ ((x & 1) * a)
             MT[i] = MT[(i + m) % n] ^ xB
 
         return MT
